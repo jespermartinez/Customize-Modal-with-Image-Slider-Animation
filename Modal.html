@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Customize Modal with Image Slider Animation</title>
+	<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+  
+  <style>
+      .modal{width:100%;height:100%;background:rgb(47, 54, 62,.9);top:0;position:fixed;z-index:15000;-webkit-transform:scaleY(0);-moz-transform:scaleY(0);-o-transform:scaleY(0);transform:scaleY(0);-webkit-transition:.5s ease-in-out;-moz-transition:.5s ease-in-out;-o-transition:.5s ease-in-out;transition:.5s ease-in-out;transform-origin:center;}
+      .modal .row_case_close{float:right;padding:0 3vw 0 0;cursor:pointer;}
+      .modal .row_case_close span{color:#faf1e2;font-size:50px;text-shadow:#000000 1px 0 5px;}
+      .modal .case_modal_content{width:60%;margin:auto;position:relative;top:2vw;overflow:hidden;}
+      .modal .case_modal_content .row_case_img{width:100%;display:flex;}
+      .modal .case_modal_content .row_case_img img{width:100%;}
+      .modal .case_modal_content .arrow_left_right_case{width:100%;top:13vw;position:absolute;}	
+      .modal .case_modal_content .arrow_left_right_case .arrow_left_slider{float:left;padding:10px 20px 10px 20px;background:rgb(232, 102, 66,.8);color:#faf1e2;transition:.5s ease-in-out;}
+      .modal .case_modal_content .arrow_left_right_case .arrow_right_slider{float:right;padding:10px 20px 10px 20px;background:rgb(232, 102, 66,.8);color:#faf1e2;transition:.5s ease-in-out;}
+      .modal .case_modal_content .arrow_left_right_case .arrow_left_slider:hover{background:#49877A;cursor:pointer;}		
+      .modal .case_modal_content .arrow_left_right_case .arrow_right_slider:hover{background:#49877A;cursor:pointer;}	
+      .modal .case_modal_content .row_bottom h1{color:#e86642;text-shadow:#000000 1px 0 5px;}
+      .modal .case_modal_content .row_bottom p{color:#faf1e2;font-size:1rem;text-align:justify;text-shadow:#000000 1px 0 5px;}
+  <style>
+  
+</head>
+<body>
+    
+    <div>
+       <form>
+          <button type="submit" id="btn_modal">Open Modal</button>
+       </form>
+    </div>
+  
+    <div class="modal" id="myModal_1">
+			<div class="row_case_close">
+				<span class="close" id="close_1">&times;</span>
+			</div>
+			<div class="case_modal_content">
+				<div class="row_case_img">
+					<img src="img/project_img/1_6.png" id="lastClone" alt="">
+					<img src="img/project_img/1_1.png">
+					<img src="img/project_img/1_2.png">
+					<img src="img/project_img/1_3.png">
+					<img src="img/project_img/1_4.png">
+					<img src="img/project_img/1_5.png">
+					<img src="img/project_img/1_6.png">
+					<img src="img/project_img/1_1.png" id="firstClone" alt="">
+				</div>
+				<div class="arrow_left_right_case">
+					<div class="arrow_left_slider" id="prev_btn">
+						<i class="fas fa-arrow-left"></i>
+					</div>
+					<div class="arrow_right_slider" id="next_btn">
+						<i class="fas fa-arrow-right"></i>
+					</div>
+				</div>	
+				<div class="row_bottom">
+					<h1>Lorem Ipsum</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac sodales magna. Donec egestas ligula viverra lorem semper, at fringilla leo tincidunt.</p>	
+				</div>
+			</div>
+		</div>
+
+/* JavaScript for Button to Trigger the Modal Content */
+
+    <script>
+				var modal_1 = document.getElementById("myModal_1");
+				var btn_modal = document.getElementById("btn_modal");
+				var close_1 = document.getElementById("close_1");
+
+				btn_modal.onclick = function() {
+					modal_1.style.transform = "scaleY(1)";
+				}
+
+				close_1.onclick = function() {
+					modal_1.style.transform = "scaleY(0)";
+				}
+
+				/* When the user clicks anywhere outside of the modal, close it */
+				window.onclick = function(event) {
+				  if (event.target == modal) {
+				      modal_1.style.display = "none";	     
+			    }
+			  }		
+		</script>
+    
+/* This will be the javaScript of Image SLIDER */ 
+
+    <script>
+        const row_case_img_slider = document.querySelector('.row_case_img');
+        const all_img_slider = document.querySelectorAll('.row_case_img img');
+
+        //buttons
+        const prev_btn = document.querySelector('#prev_btn'); 
+        const next_btn = document.querySelector('#next_btn');
+
+        //Counter
+        let counter = 1;
+        const size = all_img_slider[0].clientWidth;
+
+        row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+
+        //button Click listeners 
+        next_btn.addEventListener('click',()=>{
+          //Fixing Bug Faster Click
+          if(counter >= all_img_slider.length -1) return;
+          //Fixing Bug Faster Click
+          row_case_img_slider.style.transition = "transform 0.6s ease-in-out";
+          counter++;
+          row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+        });
+
+        prev_btn.addEventListener('click',()=>{
+          //Fixing Bug Faster Click
+          if(counter <= 0) return;
+          //Fixing Bug Faster Click
+          row_case_img_slider.style.transition = "transform 0.6s ease-in-out";
+          counter--;
+          row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+        });
+
+        row_case_img_slider.addEventListener('transitionend', ()=>{
+          //LastClone
+          if(all_img_slider[counter].id === 'lastClone'){
+            row_case_img_slider.style.transition = "none";
+            counter = all_img_slider.length -2;
+            row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+          }
+          //firstClone	
+          if(all_img_slider[counter].id === 'firstClone'){
+            row_case_img_slider.style.transition = "none";
+            counter = all_img_slider.length - counter;
+            row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+          }
+        });
+
+        /* Auto SLide, you can use it as you want. This's an optional */  
+        // setInterval(function(){
+        // 	row_case_img_slider.style.transition = "transform 0.6s ease-in-out";
+        // 	counter++;
+        // 	row_case_img_slider.style.transform = 'translateX(' +(-size * counter)+ 'px)';
+        // }, 5000 );
+      
+    </script>
+
+</body>
+</html>

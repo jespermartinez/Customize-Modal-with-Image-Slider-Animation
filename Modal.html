@@ -168,6 +168,36 @@
 		}
 	  /* Another way of looping an array */
 	  
+	  /*  Array Loop */
+	  const obj1 = {
+		  A: {
+		    bottom: 63,
+		    mid: 4,
+		    top: 15
+		  },
+		  B: {
+		    bottom: 30,
+		    mid: 23,
+		    top: 5
+		  },
+		  C: {
+		    bottom: 41,
+		    mid: 25,
+		    top: 16
+		  }
+		}
+
+		const result = [];
+
+		for (let key in obj1) {
+		  result.push(Object.assign({}, obj1[key], {
+		    	group: key
+		  }));
+
+		}
+
+		console.log(result);
+	  /*  Array Loop */
 	  
 	  
 	  

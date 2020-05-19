@@ -199,9 +199,16 @@
 		console.log(result);
 	  /*  Array Loop */
 	  
-	  
-	  
-	  
+	  /* Start Getting no. of days between two dates  */
+		var date1 = new Date("2020-03-27");
+		var date2 = new Date("2020-04-11");
+
+		var Difference_In_Time = date2.getTime() - date1.getTime();
+
+		var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+
+		console.log(Difference_In_Days+" Total Number of Days");
+	  /* End Getting no. of days between two dates  */
 	  
       
     </script>
